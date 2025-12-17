@@ -17,6 +17,7 @@ export default class FontIconsPlugin extends Plugin {
     this.addSettingTab(new FontIconsSettingTab(this.app, this));
 
     await this.addInsertNerdFontIconCommand();
+    await this.addCopyNerdFontIconCommand();
   }
 
   async loadSettings() {
@@ -36,6 +37,30 @@ export default class FontIconsPlugin extends Plugin {
           if (!(view instanceof MarkdownView)) return;
           new NerdFontModal(this.app, (selectedIcon) => {
             selectIcon(editor, this.app, this.settings, selectedIcon);
+          }).open();
+        } catch (error) {
+          this.app.workspace.trigger(
+            "show-notice",
+            `Failed to open icon modal: ${
+              error instanceof Error ? error.message : String(error)
+            }`
+          );
+        }
+      },
+    });
+  }
+
+  async addCopyNerdFontIconCommand() {
+    this.addCommand({
+      id: "font-icon-copy-nerd-font",
+      name: "Copy Nerd Font Icon to Clipboard",
+      editorCallback: (editor: Editor, view: MarkdownView) => {
+        try {
+          if (!(view instanceof MarkdownView)) return;
+          new NerdFontModal(this.app, (selectedIcon) => {
+            selectIcon(editor, this.app, this.settings, selectedIcon, {
+              copyMode: true,
+            });
           }).open();
         } catch (error) {
           this.app.workspace.trigger(
