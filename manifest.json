@@ -1,0 +1,11 @@
+{
+	"id": "font-icons",
+	"name": "Font Icons Picker",
+	"version": "1.0.0",
+	"minAppVersion": "1.1.0",
+	"description": "Add Nerd Font icons into your files easily with a searchable icon picker modal",
+	"author": "nickdutto",
+	"authorUrl": "https://github.com/nickdutto",
+	"fundingUrl": "",
+	"isDesktopOnly": false
+}
